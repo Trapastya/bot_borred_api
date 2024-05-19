@@ -6,37 +6,37 @@ require('dotenv').config();
 const token: string = process.env.BOT_TOKEN as string;
 
 const bot = new Telegraf(token);
-const greatingMessage = `I'm a bot, that will give you a something todo idea. Just click on the button below or send me message idea and I will send you an idea.`;
+const greetingMessage : string = `I'm a bot, that will give you an idea of something to do. Just click on the button below or send me a word "idea" and I will send you an idea.`;
+const youWantMoreIdeaMessage : string = `Click the button below, if you want more idea.`;
+const helpMessage : string = `- Send /start to receive a help message.\n- Send /idea to receive a message with an idea.`;
+const giveMeIdeaLabelButton: string = `Give me an idea!`; 
+const yeahGiveMeMoreLabelButton : string = `Yeah, I want! Give me one more idea!`;
 
 bot.start((ctx) => {
-  ctx.reply('Hello ' + ctx.from.first_name + '!' + '\n' + greatingMessage, Markup.inlineKeyboard([
-    Markup.button.callback('Give me an idea!', 'idea'),
+  ctx.reply(`Hello ${ctx.from.first_name} !\n${greetingMessage}`, Markup.inlineKeyboard([
+    Markup.button.callback(giveMeIdeaLabelButton, 'idea'),
   ]));
 });
 
 bot.help((ctx) => {
-  ctx.reply('Send /start to receive a greeting');
-  ctx.reply('Send /idea to receive a message with an idea');
+  ctx.reply(helpMessage);
 });
 
 bot.on('text', async (ctx) => {
   if (ctx.message.text === 'idea') {
     const idea = await getIdea();
-    return ctx.reply(idea + '\n' + "You want some more idea?", Markup.inlineKeyboard([
-      Markup.button.callback('Give me an idea!', 'idea'),
+    return ctx.reply(`${idea}'\n${youWantMoreIdeaMessage}`, Markup.inlineKeyboard([
+      Markup.button.callback(giveMeIdeaLabelButton, 'idea'),
     ]));
   } else {
-    ctx.reply(
-      'I don\'t understand you, ' + ctx.from.first_name + '.\n' +
-      'Send /start to receive a greeting',
-    );
+    ctx.reply(helpMessage);
   }
 });
 
 bot.action('idea', async (ctx) => {
   const idea = await getIdea();
-  return ctx.reply(idea + '\n' + "You want some more idea?", Markup.inlineKeyboard([
-    Markup.button.callback('Yeah, I want! Give me one more idea!', 'idea')
+  return ctx.reply(`${idea}\n\n${youWantMoreIdeaMessage}`, Markup.inlineKeyboard([
+    Markup.button.callback(yeahGiveMeMoreLabelButton, 'idea')
   ]));
 });
 
