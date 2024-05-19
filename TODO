@@ -1,0 +1,3 @@
+// TODO: Add TypeORM to the project to use the database;
+// TODO: Add the ability to change the language in the greeting message or skip it and use default ENG language;
+// TODO: Add the ability to apply filters for ideas (by category, price, etc.).
