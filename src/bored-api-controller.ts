@@ -35,16 +35,16 @@ export async function getIdea(): Promise<String> {
 }
 
 async function formatResponse(idea: IdeaView): Promise<String> {
-    let responseString = `Idea: ${idea.activity}\n`;
-    responseString += `Accessibility: ${idea.accessibility}\n`;
-    responseString += `Type: ${idea.type}\n`;
-    responseString += `Participants: ${idea.participants}\n`;
+    let responseString = `💡 Idea: ${idea.activity}\n`;
+    responseString += `💪 Accessibility: ${idea.accessibility}\n`;
+    responseString += `📓 Type: ${idea.type}\n`;
+    responseString += `👪 Participants: ${idea.participants}\n`;
 
     // TODO: Add text description for price (0 - free, 1 - expensive)
     if (idea.price === 0) {
-        responseString += `Price: Free\n`;
+        responseString += `💵 Price: Free\n`;
     } else {
-        responseString += `Price: ${idea.price}\n`;
+        responseString += `💵 Price: ${idea.price}\n`;
     }
 
     // TODO: Add translation for other languages
